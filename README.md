@@ -15,7 +15,7 @@ In s6 overlay v3 explicit service dependencies are used, so the `add-contenv` se
 In s6 overlay v2 the cont-init.d script is `00-add-contenv`, so any other services that depend on it should have a larger number as a prefix.
 
 For example:
-```
+```dockerfile
 ## get s6-overlay
 FROM moonbuggy2000/fetcher:latest AS s6-overlay
 WORKDIR /s6-root/
@@ -63,7 +63,7 @@ The `s6-overlay-all` image, containing both s6-overlay v2 and v3 init scripts, p
 Although it shouldn't do any harm, s6-overlay v3 will execute both v2 and v3 init scripts. To avoid pointless duplication the un-needed scripts should be removed once it's appropriate.
 
 One option is to determine the s6-overlay version from the presence of the `/etc/` folders the different versions create:
-```
+```dockerfile
 FROM moonbuggy2000/s6-add-contenv:s6-overlay-all AS add-contenv
 
 FROM not_a_real_image/alpine-s6:mystery_s6_overlay_version
